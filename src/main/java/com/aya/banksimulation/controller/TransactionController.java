@@ -5,8 +5,10 @@ import com.aya.banksimulation.model.Account;
 import com.aya.banksimulation.model.Transaction;
 import com.aya.banksimulation.service.AccountService;
 import com.aya.banksimulation.service.TransactionService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +39,12 @@ public class TransactionController {
     }
 
     @PostMapping("/transfer")
-    public String makeTransfer(@ModelAttribute("transaction")Transaction transaction, Model model){
+    public String makeTransfer(@Valid @ModelAttribute("transaction")Transaction transaction, BindingResult bindingResult, Model model){
+
+        if(bindingResult.hasErrors()){
+            model.addAttribute("accounts", accountService.listAllAccount());
+            return "transaction/make-transfer";
+        }
 
         Account receiver=accountService.retriveById(transaction.getReceiver());
         Account sender=accountService.retriveById(transaction.getSender());

@@ -2,8 +2,10 @@ package com.aya.banksimulation.controller;
 import com.aya.banksimulation.enums.AccountType;
 import com.aya.banksimulation.model.Account;
 import com.aya.banksimulation.service.AccountService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,7 +44,14 @@ public class AccountController {
     }
 
     @PostMapping("/create")
-    public String postCreateForm(@ModelAttribute("account") Account account , Model model){
+    public String postCreateForm(@Valid @ModelAttribute("account") Account account , BindingResult bindingResult, Model model ){
+
+        if(bindingResult.hasErrors()){
+
+            model.addAttribute("accountTypes", AccountType.values());
+            return "/account/create-account";
+
+        }
 
         accountService.createNewAcount(account.getBalance(),
                 new Date(),
