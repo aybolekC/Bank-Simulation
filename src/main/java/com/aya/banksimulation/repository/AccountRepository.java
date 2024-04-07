@@ -1,9 +1,9 @@
 package com.aya.banksimulation.repository;
 
-import com.aya.banksimulation.entity.Account;
+import com.aya.banksimulation.enums.AccountStatus;
+import com.aya.banksimulation.model.Account;
 import com.aya.banksimulation.exception.RecordNotFoundException;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +32,16 @@ public class AccountRepository {
 
      return accountList.stream().filter(m->m.getId().equals(accountId))
              .findAny().orElseThrow(()->new RecordNotFoundException("This account is not in the database"));
+
+    }
+
+
+    public void deleteById(UUID id) {
+
+        Account account=findById(id);
+
+        account.setAccountStatus(AccountStatus.DELETED);
+
 
     }
 }

@@ -1,6 +1,7 @@
 package com.aya.banksimulation.service.impl;
 
-import com.aya.banksimulation.entity.Account;
+import com.aya.banksimulation.enums.AccountStatus;
+import com.aya.banksimulation.model.Account;
 import com.aya.banksimulation.enums.AccountType;
 import com.aya.banksimulation.repository.AccountRepository;
 import com.aya.banksimulation.service.AccountService;
@@ -23,8 +24,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account createNewAcount(BigDecimal balance, Date creationDate, AccountType accountType, Long userId) {
-        Account account=Account.builder().id(UUID.randomUUID()).userId(userId).accountType(accountType)
+    public Account createNewAcount(BigDecimal balance, Date creationDate, AccountType accountType, Long userId, AccountStatus accountStatus) {
+        Account account=Account.builder().id(UUID.randomUUID()).userId(userId).accountType(accountType).accountStatus(AccountStatus.ACTIVE)
                 .balance(balance).creationDate(creationDate).build();
 
         return accountRepository.save(account);
@@ -34,4 +35,16 @@ public class AccountServiceImpl implements AccountService {
     public List<Account> listAllAccount() {
         return accountRepository.findAll();
     }
+
+    @Override
+    public void deleteAccount(UUID id) {
+        accountRepository.deleteById(id);
+    }
+
+    @Override
+    public Account retriveById(UUID accountId) {
+        return accountRepository.findById(accountId);
+    }
+
+
 }

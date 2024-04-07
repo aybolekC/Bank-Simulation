@@ -1,6 +1,6 @@
 package com.aya.banksimulation;
 
-import com.aya.banksimulation.entity.Account;
+import com.aya.banksimulation.model.Account;
 import com.aya.banksimulation.enums.AccountType;
 import com.aya.banksimulation.service.AccountService;
 import com.aya.banksimulation.service.TransactionService;
@@ -17,27 +17,26 @@ import java.util.Date;
 public class BankSimulationApplication {
 
     public static void main(String[] args) {
-
         ApplicationContext applicationContext=SpringApplication.run(BankSimulationApplication.class, args);
 
 
-        AccountService accountService = applicationContext.getBean(AccountServiceImpl.class);
-        TransactionService transactionService = applicationContext.getBean(TransactionServiceImpl.class);
-
-        Account receiver = accountService.createNewAcount( BigDecimal.TEN, new Date(), AccountType.CHECKING, 1L);
-        Account sender =  accountService.createNewAcount(new BigDecimal(70), new Date(), AccountType.CHECKING, 1L);
-
-        accountService.listAllAccount().forEach(System.out::println);
-
-        transactionService.makeTransfer(BigDecimal.TEN, new Date(), sender, receiver, "transfer no:1");
-
-        System.out.println(transactionService.findAll().get(0));
-        accountService.listAllAccount().forEach(System.out::println);
-
-        transactionService.makeTransfer(new BigDecimal(25), new Date(), sender, receiver, "transfer no:2");
-
-        System.out.println(transactionService.findAll().get(1));
-        accountService.listAllAccount().forEach(System.out::println);
+//        AccountService accountService = applicationContext.getBean(AccountServiceImpl.class);
+//        TransactionService transactionService = applicationContext.getBean(TransactionServiceImpl.class);
+//
+//        Account receiver = accountService.createNewAcount( BigDecimal.TEN, new Date(), AccountType.CHECKING, 1L);
+//        Account sender =  accountService.createNewAcount(new BigDecimal(70), new Date(), AccountType.CHECKING, 1L);
+//
+//        accountService.listAllAccount().forEach(System.out::println);
+//
+//        transactionService.makeTransfer(BigDecimal.TEN, new Date(), sender, receiver, "transfer no:1");
+//
+//        System.out.println(transactionService.findAll().get(0));
+//        accountService.listAllAccount().forEach(System.out::println);
+//
+//        transactionService.makeTransfer(new BigDecimal(25), new Date(), sender, receiver, "transfer no:2");
+//
+//        System.out.println(transactionService.findAll().get(1));
+//        accountService.listAllAccount().forEach(System.out::println);
 
 
     }

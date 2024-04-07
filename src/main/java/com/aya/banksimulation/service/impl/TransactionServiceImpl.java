@@ -1,7 +1,7 @@
 package com.aya.banksimulation.service.impl;
 
-import com.aya.banksimulation.entity.Account;
-import com.aya.banksimulation.entity.Transaction;
+import com.aya.banksimulation.model.Account;
+import com.aya.banksimulation.model.Transaction;
 import com.aya.banksimulation.enums.AccountType;
 import com.aya.banksimulation.exception.AccountOwnerShipException;
 import com.aya.banksimulation.exception.BadRequestException;
@@ -9,7 +9,6 @@ import com.aya.banksimulation.exception.BalanceNotSufficientException;
 import com.aya.banksimulation.exception.UnderConstructionException;
 import com.aya.banksimulation.repository.AccountRepository;
 import com.aya.banksimulation.repository.TransactionRepository;
-import com.aya.banksimulation.service.AccountService;
 import com.aya.banksimulation.service.TransactionService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -101,5 +100,15 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<Transaction> findAll() {
         return transactionRepository.findAll();
+    }
+
+    @Override
+    public List<Transaction> retrieveLastTransaction() {
+        return transactionRepository.retrieveLastTransactions();
+    }
+
+    @Override
+    public List<Transaction> findTransactionListById(UUID transactionId) {
+        return transactionRepository.findTransactionListById(transactionId);
     }
 }

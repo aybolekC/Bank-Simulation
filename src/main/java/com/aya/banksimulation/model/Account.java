@@ -1,5 +1,6 @@
-package com.aya.banksimulation.entity;
+package com.aya.banksimulation.model;
 
+import com.aya.banksimulation.enums.AccountStatus;
 import com.aya.banksimulation.enums.AccountType;
 import lombok.Builder;
 import lombok.Data;
@@ -16,6 +17,7 @@ public class Account {
     private UUID id;
     private BigDecimal balance;
     private AccountType accountType;
+    private AccountStatus accountStatus;
     private Date creationDate;
     private Long userId;
 

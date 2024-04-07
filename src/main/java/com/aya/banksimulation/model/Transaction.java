@@ -1,4 +1,4 @@
-package com.aya.banksimulation.entity;
+package com.aya.banksimulation.model;
 
 import lombok.Builder;
 import lombok.Data;
